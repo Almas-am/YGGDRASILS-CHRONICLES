@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useContext } from "react";
 import {Link} from "react-router-dom";
 import { UserContext } from "./UserContext";
 
@@ -12,7 +12,7 @@ export default function Header(){
                 setUserInfo(userInfo);     
             });
         });
-}, []);
+}, [setUserInfo]);
 
     function logout() {
       fetch('http://localhost:2000/logout', {
@@ -31,7 +31,9 @@ export default function Header(){
                 {username && (
                     <>
                         <Link to="/create">Create new post</Link>
-                        <a onClick={logout}>Logout</a>
+                        <button onClick={logout} style={{ background: 'none', color: 'blue', textDecoration: 'underline', border: 'none', padding: 0, cursor: 'pointer' }}>
+                            Logout
+                        </button>
                     </>
                 )}
                 {!username && (
