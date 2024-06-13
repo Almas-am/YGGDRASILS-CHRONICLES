@@ -18,6 +18,7 @@ const secret = 'askfhri409rneccl';
 app.use(cors({credentials:true, origin:'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname+'/uploads'));
 
 mongoose.connect('mongodb+srv://blog:8ivfhhtShEeH2d9l@cluster0.dwcqmpu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 .then(() => {
