@@ -4,15 +4,25 @@ import { UserContext } from "./UserContext";
 
 export default function Header(){
    const {setUserInfo, userInfo} = useContext(UserContext);
-    useEffect(() => {
-        fetch('http://localhost:2000/profile', {
-            credentials: 'include',
-        }).then(response => {
-            response.json().then(userInfo =>{   
-                setUserInfo(userInfo);     
-            });
-        });
-}, [setUserInfo]);
+   useEffect(() => {
+    fetch('http://localhost:2000/profile', {
+      credentials: 'include',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(userInfo => {   
+      setUserInfo(userInfo);     
+    })
+    .catch(error => {
+      console.error('Error fetching profile:', error);
+      // Handle error, e.g., setUserInfo(null) or show error message
+    });
+  }, [setUserInfo]);
+  
 
     function logout() {
       fetch('http://localhost:2000/logout', {
